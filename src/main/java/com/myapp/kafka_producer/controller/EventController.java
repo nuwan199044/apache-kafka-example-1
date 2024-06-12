@@ -19,8 +19,8 @@ public class EventController {
     @GetMapping("/produce/{message}")
     public ResponseEntity<?> publishMessage(@PathVariable String message) {
         try {
-            for (int i = 0; i < 10000; i++) {
-                publisher.sendMessageToTopic(message);
+            for (int i = 0; i < 100000; i++) {
+                publisher.sendMessageToTopic(message+" : "+i);
             }
             return ResponseEntity.ok("message published successfully");
         } catch (Exception ex) {

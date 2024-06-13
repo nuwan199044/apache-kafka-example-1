@@ -1,6 +1,5 @@
 package com.myapp.kafka_producer.service;
 
-import com.myapp.dto.Customer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -15,8 +14,8 @@ public class KafkaMessagePublisher {
     @Autowired
     KafkaTemplate<String,Object> template;
 
-    public void sendMessageToTopic(String message) {
-        CompletableFuture<SendResult<String, Object>> customerTopic = template.send("customerTopic", message);
+    public void sendMessageToTopic(String message, int partition) {
+        CompletableFuture<SendResult<String, Object>> customerTopic = template.send("customerTopic6", partition, null, message);
         customerTopic.whenComplete((result, exception)->{
             if (exception == null) {
                 System.out.println("Sent message=[ "+message+ "] with offset=[ "+result.getRecordMetadata().offset()+" ]");
@@ -24,20 +23,5 @@ public class KafkaMessagePublisher {
                 System.out.println("Unable to send message=[ "+message+ " ] due to: "+exception.getMessage());
             }
         });
-    }
-
-    public void sendEventToTopic(Customer customer) {
-        try {
-            CompletableFuture<SendResult<String, Object>> customerTopic = template.send("customerTopic4", customer);
-            customerTopic.whenComplete((result, exception)->{
-                if (exception == null) {
-                    System.out.println("Sent message=["+customer.toString()+ "] with offset=[ "+result.getRecordMetadata().offset()+" ]");
-                } else {
-                    System.out.println("Unable to send message=["+customer.toString()+ "] due to: "+exception.getMessage());
-                }
-            });
-        } catch(Exception ex) {
-            log.error("ERROR {} ",ex.getMessage());
-        }
     }
 }

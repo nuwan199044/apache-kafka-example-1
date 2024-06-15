@@ -1,14 +1,19 @@
-package com.myapp.kafka_producer.config;
+package com.myapp.config;
 
 import org.apache.kafka.clients.admin.NewTopic;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class KafkaProducerConfig {
+public class KafkaConfig {
+
+    @Value("${app.topic.name}")
+    private String topicName;
 
     @Bean
     public NewTopic createTopic() {
-        return new NewTopic("customerTopic4", 3, (short) 1);
+        return new NewTopic(topicName, 3, (short) 1);
     }
+
 }

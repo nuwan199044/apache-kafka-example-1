@@ -1,7 +1,7 @@
-package com.myapp.kafka_producer.controller;
+package com.myapp.controller;
 
 import com.myapp.dto.Customer;
-import com.myapp.kafka_producer.service.KafkaMessagePublisher;
+import com.myapp.service.KafkaMessagePublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

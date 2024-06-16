@@ -1,4 +1,4 @@
-package com.myapp.kafka_producer.service;
+package com.myapp.service;
 
 import com.myapp.dto.Customer;
 import lombok.extern.slf4j.Slf4j;
